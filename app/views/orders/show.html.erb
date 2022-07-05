@@ -5,9 +5,33 @@
   </header>
 
   <div class="order-summary jumbotron">
-    <h4>Thank you for your order!</h4>
-  </div>
-
+    </div>
+    <div class="panel panel-default items">
+    <table class="table table-bordered">
+    <thead>
+    <tr>
+    <th colspan="2">Product</th>
+    <th>Unit Price</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @order.line_items.each do |item| %>
+      <%= render 'showOrders', product: (Product.find item[:product_id]), price: item[:item_price_cents], quantity: item[:quantity].to_i %>
+      <% end %>
+      </tbody>
+      <tfoot>
+      <th colspan="4">TOTAL</th>
+      <th>$<%= (@order.total_cents / 100.0) %></th>
+      </tfoot>
+      </table>
+      </div>
+      <div>
+      </br>
+        <h5>Thank you for your order!</h5>
+        <h5>Order email: <%= @order.email %></h5>
+        </br>
+      </div>
+  </section>
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
-
-</section>
